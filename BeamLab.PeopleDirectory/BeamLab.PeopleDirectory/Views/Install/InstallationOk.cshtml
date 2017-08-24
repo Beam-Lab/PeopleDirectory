@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "InstallationOk";
+}
+
+<h2>Installation is Ok</h2>
+
+
+<button class="btn btn-primary sync" onclick="checkGrantPermissionsForTenant()" style="margin-bottom:15px">Grant your Tenant for SmartFlow 365 Graph</button>
+
+@section scripts {
+
+    <script>
+        function checkGrantPermissionsForTenant() {
+
+            $.ajax({
+                url: "/api/grant"
+            }).done(function (data) {
+
+            }).fail(function (data) {
+
+                // If we got a 403, the user needs to grant our app permissions.
+                if (data.status == 403) {
+                    window.location.replace("/Account/GrantPermissions");
+                    return;
+                }
+            })
+        }
+    </script>
+
+}
